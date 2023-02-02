@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Heading, Text, VStack } from "native-base";
 
 import { Button, Input, SkipSignin } from "../../../Component";
@@ -8,6 +8,9 @@ import { spacing } from '../../../Constraints/size'
 import { axiosInstance } from "../../../Helper";
 import { signin } from "../../../Redux/Authentication";
 import { useDispatch } from "react-redux";
+import * as Device from 'expo-device';
+import * as Network from 'expo-network';
+import * as Location from 'expo-location';
 
 const SignUp = ({navigation}) => {
 
@@ -21,10 +24,25 @@ const SignUp = ({navigation}) => {
     setForm({...form, [index]: value});
   }
 
-  const signUpHandler = () => {
+  const signUpHandler = async () => {
     setError(null);
     setLoading(true);
-    axiosInstance.post('/auth/signup', form)
+
+    let device = await Device.brand;
+    let ip_address = await Network.getIpAddressAsync();
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    let location = null;
+    if (status === 'granted') {
+      location = await Location.getCurrentPositionAsync({});
+    }
+
+    let payload = {
+      ...form,
+      location: location,
+      ip_address: ip_address,
+      device: device
+    }
+    axiosInstance.post('/auth/signup', payload)
     .then((res)=>{
       setLoading(false)
       dispatch(signin(res.data))
@@ -51,7 +69,7 @@ const SignUp = ({navigation}) => {
         padding={spacing*0.25}
         backgroundColor={colors.secondary}
       >
-        <Heading color={colors.primary} size={'2xl'}>{('Flight Aware').toUpperCase()}</Heading>
+        <Heading color={colors.primary} size={'2xl'}>{('Flight Review').toUpperCase()}</Heading>
       </Box>
 
       <VStack

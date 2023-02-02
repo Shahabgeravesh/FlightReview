@@ -8,12 +8,13 @@ import { takeOff } from '../../../assets/icons';
 import { dateTime } from '../../Helper';
 
 import { swipeLeft, swipeRight } from '../../../assets/icons';
+import FlightHeader from '../FlightHeader';
 // import { image_url } from '../url'
 
 const { width, height } = Dimensions.get("screen");
-const CONTAINER_HEIGHT = height - (spacing*5)
+const CONTAINER_HEIGHT = (height*0.95) - (spacing*5)
 
-export default function SwipeableImage({ user, willLike, willPass, navigation, category, airline, flightLogObject }) {
+export default function SwipeableImage({ user, willLike, willPass, navigation, category, airline, flightLogObject, handleLike, handlePass, handleLikePress, handlePassPress }) {
   return (
     <Pressable
       borderRadius={spacing}
@@ -22,73 +23,46 @@ export default function SwipeableImage({ user, willLike, willPass, navigation, c
       backgroundColor={colors.secondary}
       onPress={()=>navigation.navigate('questions', {data: airline, category: user, flightLogObject: flightLogObject})}
     >
+      <FlightHeader airline={airline} user={user} />
       <VStack
         flex={1}
-        space={3}
-        id="main-section"
-      >
-        <VStack
-          flex={1}
-          space={3}
-        >
-          <SharedElement id={airline?.ident_iata}>
-            <Heading fontSize={'xl'} textAlign={'center'}>{airline?.ident_iata}</Heading>
-          </SharedElement>
-          <SharedElement id={airline?.type}>
-            <Heading fontSize={'md'} textAlign={'center'}>{airline?.type}</Heading>
-          </SharedElement>
-          <HStack>
-            <SharedElement id={airline?.origin?.code_iata}>
-              <Heading>{airline?.origin?.code_iata}</Heading>
-            </SharedElement>
-            <SharedElement id="takeOff" style={{alignItems: 'center', flex:1}}>
-              <Image
-                source={takeOff}
-                resizeMode={'contain'}
-                style={{
-                  width: 50,
-                  height: 50,
-                  flex: 1
-                }}
-              />
-            </SharedElement>
-            <SharedElement id={airline?.destination?.code_iata}>
-              <Heading>{airline?.destination?.code_iata}</Heading>
-            </SharedElement>
-          </HStack>
-          <SharedElement id={airline?.scheduled_out}>
-            <Text textAlign={'center'}>{dateTime(airline?.scheduled_out)}</Text>
-          </SharedElement>
-        </VStack>
-        <Heading fontSize={'3xl'} textAlign={'center'}>{user.name}</Heading>
-      </VStack>
-      <VStack
-        flex={1}
-        justifyContent={'center'}
+        justifyContent={'flex-end'}
       >
         <HStack>
           <Box
             flex={1}
           >
-            <Image
-              source={swipeLeft}
-              style={{
-                width: 50,
-                height: 50
+            <Pressable
+              onPress={()=>{
+                handleLikePress()
               }}
-            />
+            >
+              <Image
+                source={swipeLeft}
+                style={{
+                  width: 50,
+                  height: 50
+                }}
+              />
+            </Pressable>
           </Box>
           <Box
             flex={1}
             flexDirection={'row-reverse'}
           >
-            <Image
-              source={swipeRight}
-              style={{
-                width: 50,
-                height: 50
+            <Pressable
+              onPress={()=>{
+                handlePassPress();
               }}
-            />
+            >
+              <Image
+                source={swipeRight}
+                style={{
+                  width: 50,
+                  height: 50
+                }}
+              />
+            </Pressable>
           </Box>
         </HStack>
       </VStack>

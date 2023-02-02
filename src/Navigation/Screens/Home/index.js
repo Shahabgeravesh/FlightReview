@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Modal } from "react-native";
 import { Box, Heading, Text, VStack } from "native-base";
 
 import { Button, Input, InputDate } from '../../../Component';
@@ -45,7 +46,7 @@ const Home = ({navigation}) => {
           marginRight={spacing*0.25}
           backgroundColor={colors.secondary}
         >
-          <Heading color={colors.primary} size={'2xl'} textAlign={'center'}>{('Flight Aware').toUpperCase()}</Heading>
+          <Heading color={colors.primary} size={'2xl'} textAlign={'center'}>{('Flight Review').toUpperCase()}</Heading>
         </Box>
         <VStack
           flex={1}

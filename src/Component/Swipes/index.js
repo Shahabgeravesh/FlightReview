@@ -4,7 +4,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable'
 import { RectButton } from 'react-native-gesture-handler'
 import SwipeableImage from '../../Component/SwipeableImage'
 
-function Swipes({ users, currentIndex, handleLike, handlePass, swipesRef, navigation, category, airline, flightLogObject }) {
+function Swipes({ users, currentIndex, handleLike, handlePass, swipesRef, navigation, category, airline, flightLogObject, handleLikePress, handlePassPress }) {
   const [willLike, setWillLike] = useState(false)
   const [willPass, setWillPass] = useState(false)
   const renderLeftActions = () => {
@@ -32,11 +32,11 @@ function Swipes({ users, currentIndex, handleLike, handlePass, swipesRef, naviga
       renderRightActions={renderRightActions}
       onSwipeableLeftOpen={() => {
         setWillLike(false)
-        handleLike()
+        handlePass()
       }}
       onSwipeableRightOpen={() => {
         setWillPass(false)
-        handlePass()
+        handleLike()
       }}
       onSwipeableLeftWillOpen={() => setWillLike(true)}
       onSwipeableRightWillOpen={() => setWillPass(true)}
@@ -44,7 +44,7 @@ function Swipes({ users, currentIndex, handleLike, handlePass, swipesRef, naviga
         width: '100%',
       }}
     >
-      <SwipeableImage user={users[currentIndex]} willLike={willLike} willPass={willPass} navigation={navigation} category={category} airline={airline} flightLogObject={flightLogObject} />
+      <SwipeableImage user={users[currentIndex]} willLike={willLike} willPass={willPass} navigation={navigation} category={category} airline={airline} flightLogObject={flightLogObject} handleLike={()=>handleLike()} handlePass={()=>handlePass()} handleLikePress={()=>handleLikePress()} handlePassPress={()=>handlePassPress()} />
     </Swipeable>
   )
 }

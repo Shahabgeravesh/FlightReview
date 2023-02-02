@@ -4,6 +4,7 @@ import Loading from './Loading';
 import InputDate from './InputDate';
 import SkipSignin from './SkipSignin';
 import FlightView from './FlightView';
+import FlightHeader from './FlightHeader';
 import FlightComment from './FlightComment';
 import FlightQuestion from './FlightQuestion';
 
@@ -14,6 +15,7 @@ export {
   InputDate,
   SkipSignin,
   FlightView,
+  FlightHeader,
   FlightComment,
   FlightQuestion,
 }

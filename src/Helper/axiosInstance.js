@@ -18,7 +18,8 @@ const handleRequestError = (e) => {
 // create axiosInstance
 const axiosInstance = axios.create({
 // set base url
-  baseURL:'http://127.0.0.1/api',
+  // baseURL:'http://127.0.0.1/api',
+  baseURL:'https://yayornaybackend-bmqgc.ondigitalocean.app/api',
 });
 
 // adding interceptors for request

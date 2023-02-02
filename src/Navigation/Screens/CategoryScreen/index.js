@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native"
 import Constants from 'expo-constants'
 import Swipes from "../../../Component/Swipes"
 import { axiosInstance } from "../../../Helper";
+import FlightComment from "../../../Component/FlightComment";
 
 const CategoryScreen = ({navigation, route}) => {
 
@@ -56,16 +57,20 @@ const CategoryScreen = ({navigation, route}) => {
       }
 
       function nextUser() {
-        const nextIndex = items.length - 1 === currentIndex ? 0 : currentIndex + 1
-        setCurrentIndex(nextIndex)
+        const nextIndex = currentIndex + 1
+        if(items.length - 1 === currentIndex){
+          navigation.navigate('flightComment', {flight: flightLogObject?.id, user: items[currentIndex], airline: data})
+        } else {
+          setCurrentIndex(nextIndex)
+        }
       }
 
       function handleLikePress() {
-        swipesRef.current.openLeft()
+        swipesRef.current.openRight()
         handleListingLike(1)
       }
       function handlePassPress() {
-        swipesRef.current.openRight()
+        swipesRef.current.openLeft()
         handleListingLike(0)
       }
 
@@ -82,7 +87,9 @@ const CategoryScreen = ({navigation, route}) => {
                           currentIndex={currentIndex}
                           users={items}
                           handleLike={handleLike}
+                          handleLikePress={handleLikePress}
                           handlePass={handlePass}
+                          handlePassPress={handlePassPress}
                           navigation={navigation}
                           category={data}
                           airline={data}
@@ -92,11 +99,7 @@ const CategoryScreen = ({navigation, route}) => {
                     )
                   })}
               </View>
-              {
-                // items[currentIndex]?.userAction ?
-                // <Message data={items[currentIndex].userAction} />
-                // : <BottomClick handleLikePress={handleLikePress} handlePassPress={handlePassPress} />
-              }
+              {/* <FlightComment isVisible={commentBox}  /> */}
           </View>
       )
 }

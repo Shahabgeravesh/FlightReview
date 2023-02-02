@@ -7,13 +7,17 @@ import FlightSearch from "./FlightSearch";
 import CategoryScreen from "./CategoryScreen";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 import CategoryQuestions from "./CategoryQuestions";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const Stack = createSharedElementStackNavigator();
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FlightComment } from "../../Component";
 
-const Screens = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="home">
+const Tab = createBottomTabNavigator();
+
+const HomeStack = () => {
+  return(
+    <Stack.Navigator initialRouteName="home">
         <Stack.Screen name="home" component={Home} options={{headerShown: false}} />
         <Stack.Screen
           name="questions"
@@ -87,8 +91,38 @@ const Screens = () => {
             ];
           }}
         />
-        <Stack.Screen name="flightDetails" component={CategoryScreen} options={{headerShown: false}} />
+        <Stack.Screen 
+          name="flightDetails" 
+          component={CategoryScreen} 
+          options={{headerShown: false}} 
+          
+        />
+        <Stack.Screen name="flightComment" component={FlightComment} options={{headerShown: false}} />
       </Stack.Navigator>
+  )
+}
+
+const Screens = () => {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="home-screen"
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            return(
+              <MaterialCommunityIcons color={color} size={size} name={'home-search-outline'} />
+            )
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        })}
+      >
+        <Tab.Screen 
+          name="home-screen" 
+          component={HomeStack}
+          options={{headerShown: false}}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   )
 }

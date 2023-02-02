@@ -52,7 +52,7 @@ const SignIn = ({navigation}) => {
         padding={spacing*0.25}
         backgroundColor={colors.secondary}
       >
-        <Heading color={colors.primary} size={'2xl'}>{('Flight Aware').toUpperCase()}</Heading>
+        <Heading color={colors.primary} size={'2xl'}>{('Flight Review').toUpperCase()}</Heading>
       </Box>
 
       <VStack
