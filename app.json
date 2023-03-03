@@ -1,8 +1,10 @@
 {
   "expo": {
-    "name": "FlightReview",
-    "slug": "FlightReview",
+    "name": "Flight Review",
+    "slug": "flight-review",
+    "description": "Flight tracking application.",
     "version": "1.0.0",
+    "privacy": "public",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -28,6 +30,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7d852454-0ab3-43cf-bb58-53ec47f4a384"
+      }
+    },
+    "owner": "thebeesol"
   }
 }

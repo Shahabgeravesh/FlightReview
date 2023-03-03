@@ -28,12 +28,14 @@ const FlightView = ({data, navigation}) => {
       setLoading(false)
     })
     .catch((err)=>{
+      console.log(err);
       setLoading(false)
     })
   }
 
   const getLogFlight = () => {
     setGetLoading(true)
+    console.log(`/user/flight_log/${data?.inbound_fa_flight_id}`);
     axiosInstance.get(`/user/flight_log/${data?.inbound_fa_flight_id}`)
     .then((res)=>{
       setGetLoading(false)

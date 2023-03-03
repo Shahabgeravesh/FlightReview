@@ -18,10 +18,12 @@ const FlightComment = ({ navigation, route }) => {
 
   const submit_comment = () => {
     setLoading(true)
+    setSubmitSuccess(null)
     axiosInstance.post('/flight/comment', {flight: flight, comment: value})
     .then((res)=>{
       setLoading(false)
-      setSubmitSuccess(res.data)
+      setValue('');
+      setSubmitSuccess(res?.data)
     })
     .catch((err)=>{
       setLoading(false)
@@ -56,7 +58,7 @@ const FlightComment = ({ navigation, route }) => {
               onChangeText={(value)=>setValue(value)}
             />
             {error ? <Text fontSize={'xs'} color={colors.error} textAlign={'center'}>{error}</Text> : null}
-            {submitSuccess ? <Text fontSize={'xs'} color={colors.error} textAlign={'center'}>{submitSuccess}</Text> : null}
+            {submitSuccess ? <Text fontSize={'xs'} color={colors.primary} textAlign={'center'}>{submitSuccess?.message}</Text> : null}
             <Button title={"Submit"} isLoading={loading} onPress={()=>submit_comment()} />
           </VStack>
         </VStack>
